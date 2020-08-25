@@ -1,0 +1,88 @@
+<div class="container w-75" style="min-width: 395px;">
+  <form
+    (ngSubmit)="onSubmit()"
+    [formGroup]="form"
+    class="pt-1 mb-5 bg-white border pb-1"
+  >
+    <!-- *Description of the survey -->
+    <div class="container">
+      <mat-card class="w-100 container mt-2 mb-2">
+        <mat-card-header>
+          <mat-card-title></mat-card-title>
+        </mat-card-header>
+        <mat-card-content>
+          {{ surveyDesc }}
+        </mat-card-content>
+      </mat-card>
+    </div>
+    <div *ngFor="let question of questions" class="form-row">
+      <app-question
+        class="w-100 container mt-2 mb-2"
+        [question]="question"
+        [form]="form"
+      ></app-question>
+      <!-- <app-question></app-question> -->
+    </div>
+
+    <div class="form-row container w-100 mb-2 mt-1">
+      <!-- <button type="submit" [disabled]="!form.valid">Save</button> -->
+      <button
+        mat-raised-button
+        type="submit"
+        [disabled]="!form.valid"
+        color="primary"
+        class="w-25"
+        style="min-width: 150px;"
+      >
+        Save
+      </button>
+      <!-- <button
+        mat-raised-button
+        type="submit"
+        color="primary"
+        class="w-25"
+        style="min-width: 150px;"
+      >
+        Save
+      </button> -->
+
+      <button
+        mat-raised-button
+        class="ml-1 w-25"
+        type="button"
+        [disabled]="form.pristine"
+        (click)="resetForm()"
+        color="warn"
+        style="min-width: 150px;"
+      >
+        reset
+      </button>
+
+      <!-- <button
+        mat-raised-button
+        class="ml-1 w-25"
+        type="button"
+        (click)="openDialog()"
+        style="min-width: 150px;"
+      >
+        open dialog
+      </button> -->
+    </div>
+
+    <ngx-spinner
+      bdColor="rgba(0,51,127,0.2)"
+      size="medium"
+      color="rgb(0,51,127)"
+      type="ball-scale-multiple"
+      fullScreen="false"
+    >
+      <!-- <p style="font-size: 20px; color: rgb(0, 51, 127);">Submitting...</p> -->
+    </ngx-spinner>
+  </form>
+
+  <div *ngIf="payLoad" class="form-row mb-5">
+    <strong>Saved the following values</strong><br />{{ payLoad }}
+  </div>
+</div>
+<!-- This is working
+<app-question></app-question> -->

@@ -1,0 +1,33 @@
+<!-- <h1 mat-dialog-title class="text-center">Submitting...</h1>
+<div>
+  <mat-progress-spinner
+    class="example-margin"
+    [color]="color"
+    [mode]="mode"
+    [value]="value"
+    style="margin: 0 auto;"
+  >
+  </mat-progress-spinner>
+  <div style="position: relative; top: 40px; left: -88px; font-size: 0.8em;">
+      Submitting
+    </div>
+</div> -->
+
+<h1 mat-dialog-title>
+  <mat-icon class="align-middle">info</mat-icon> Confirmation
+</h1>
+
+<div mat-dialog-content>
+  <p>Do you want to submit the form?</p>
+</div>
+<div mat-dialog-actions align="end">
+  <button mat-raised-button (click)="onNoClick()">No</button>
+  <button
+    mat-raised-button
+    color="primary"
+    cdkFocusInitial
+    (click)="onYesClick()"
+  >
+    submit
+  </button>
+</div>

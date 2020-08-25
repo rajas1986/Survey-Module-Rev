@@ -1,0 +1,6 @@
+.mat-card {
+  background-color: rgba(0, 81, 127, 0.95) !important;
+  color: white !important;
+  justify-content: center !important;
+  padding: 5px !important;
+}

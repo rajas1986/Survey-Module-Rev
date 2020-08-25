@@ -1,0 +1,44 @@
+mat-table {
+  width: 100%;
+}
+.btn {
+  /* border: 1px solid transparent !important; */
+  padding: 0px 5px !important;
+  /* font-size: 0.1rem !important;  */
+  /* line-height: 1.25 !important;  */
+  /* border-radius: 0.1rem !important; */
+  /* font-weight: 100 !important;  */
+}
+
+mat-header-row {
+  background-color: aliceblue !important;
+}
+
+.status {
+  color: rgb(221, 5, 5) !important;
+}
+
+/* mat-header-cell,
+mat-cell,
+mat-footer-cell {
+  max-width: 100px !important;
+} */
+.mat-column-actions {
+  justify-content: center !important;
+}
+.mat-column-position {
+  max-width: 100px !important;
+}
+
+mat-form-field {
+  /* width: calc(100% - 150px) !important;
+  min-width: 120px !important; */
+  width: 100% !important;
+}
+.hide {
+  display: none;
+}
+mat-footer-row mat-footer-cell {
+  justify-content: center;
+  font-style: italic;
+}

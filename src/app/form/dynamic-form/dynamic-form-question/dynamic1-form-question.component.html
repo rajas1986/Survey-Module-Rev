@@ -1,0 +1,150 @@
+<div [formGroup]="form">
+  <mat-card>
+    <mat-card-header>
+      <mat-card-title [attr.for]="question.QuesId">
+        Q.{{ question.QuesId }}. {{ question.QuesText }}
+        <span class="text-danger">*</span>
+      </mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+      <div [ngSwitch]="question.controlType">
+        <!-- <input
+            *ngSwitchCase="'textbox'"
+            [formControlName]="question.key"
+            [id]="question.key"
+            [type]="question.type"
+          /> -->
+        <div *ngSwitchCase="'textbox'">
+          <mat-form-field
+            floatLabel="never"
+            class="container example-full-width"
+          >
+            <!-- I am -->
+            <!-- <mat-label>Write here ...</mat-label> -->
+            <!-- <div class="container"> -->
+            <!-- <textarea
+                [formControlName]="question.key"
+                [id]="question.key"
+                [type]="question.type"
+                matInput
+                class="text-left"
+                placeholder="Write here..."
+                maxlength="50"
+              ></textarea> -->
+            <input
+              matInput
+              [formControlName]="question.QuesId"
+              [id]="question.QuesId"
+              [type]="question.QuesId"
+              maxlength="50"
+              placeholder="Write here..."
+              #input
+            />
+
+            <span
+              matSuffix
+              countChar
+              style="font-size: 0.8em;"
+              [ngClass]="{ 'text-danger': input.value?.length > 39 }"
+              >{{ input.value?.length }}/50</span
+            >
+            <!-- </div> -->
+          </mat-form-field>
+        </div>
+        <!-- ? this one is working fine-->
+        <!-- <select
+            [id]="question.key"
+            *ngSwitchCase="'dropdown'"
+            [formControlName]="question.key"
+            class="container mb-3"
+          >
+            <option *ngFor="let opt of question.options" [value]="opt.key">{{
+              opt.value
+            }}</option>
+          </select> -->
+        <mat-form-field
+          floatLabel="never"
+          *ngSwitchCase="'dropdown'"
+          class="container w-50"
+          style="min-width: 150px;"
+        >
+          <mat-label>Select Option </mat-label>
+          <mat-select
+            [id]="question.QuesId"
+            [formControlName]="question.QuesId"
+          >
+            <mat-option
+              *ngFor="let opt of question.options"
+              [value]="opt.ChoiceValue"
+            >
+              {{ opt.ChoiceText }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+
+        <!-- *This is for single choice questio (Not Working)-->
+        <!-- <span class="container" *ngSwitchCase="'sChoice'">
+            <mat-checkbox
+              color="primary"
+              *ngFor="let opt of question.options"
+              class="example-margin"
+              [id]="question.key"
+              [formControlName]="question.key"
+              [value]="opt.key"
+              (click)="checkAll()"
+              >{{ opt.value }}
+            </mat-checkbox>
+          </span> -->
+        <!-- *THis is form Multiple Choice question (Not working) -->
+        <!-- <span class="container" *ngSwitchCase="'mChoice'">
+            <span *ngFor="let opt of question.options">
+              <mat-checkbox
+                color="primary"
+                class="example-margin"
+                [id]="question.key"
+                [formControlName]="question.key"
+                >{{ opt.value }}
+              </mat-checkbox>
+            </span>
+          </span> -->
+        <!-- *Single Choice Question Working -->
+        <mat-radio-group
+          *ngSwitchCase="'sChoice'"
+          class="example-radio-group container"
+          [id]="question.QuesId"
+          [formControlName]="question.QuesId"
+        >
+          <mat-radio-button
+            class="example-radio-button"
+            *ngFor="let opt of question.options"
+            [value]="opt.ChoiceValue"
+          >
+            {{ opt.ChoiceText }}
+          </mat-radio-button>
+        </mat-radio-group>
+
+        <!-- * Lets work for multi-choice question -->
+        <div class="container" *ngSwitchCase="'mChoice'">
+          <mat-selection-list
+            [id]="question.QuesId"
+            [formControlName]="question.QuesId"
+          >
+            <mat-list-option
+              *ngFor="let opt of question.options"
+              (click)="handleChange(opt)"
+              [value]="opt.ChoiceValue"
+              labelPosition="before"
+            >
+              {{ opt.ChoiceText }}
+            </mat-list-option>
+          </mat-selection-list>
+        </div>
+
+        <!-- <p>Options selected: {{ shoes.selectedOptions.selected.length }}</p> -->
+      </div>
+      <div class="errorMessage text-danger container" *ngIf="isInvalid">
+        This field is mandatory
+      </div>
+    </mat-card-content>
+  </mat-card>
+</div>

@@ -1,0 +1,86 @@
+<div class="container w-75" style="min-width: 395px;">
+  <form
+    (ngSubmit)="onSubmit1()"
+    [formGroup]="odataForm"
+    class="pt-1 mb-5 bg-white border pb-1 rounded"
+  >
+    <!-- *Description of the survey -->
+    <div class="container">
+      <!-- * Here is the loading  -->
+      <mat-progress-bar
+        *ngIf="showLoading"
+        mode="indeterminate"
+      ></mat-progress-bar>
+
+      <mat-card class="w-100 container mt-2 mb-2">
+        <mat-card-header>
+          <mat-card-title></mat-card-title>
+        </mat-card-header>
+        <mat-card-content>
+          {{ surveyDesc }}
+        </mat-card-content>
+      </mat-card>
+    </div>
+    <div *ngFor="let question of odataFormQuestions" class="form-row">
+      <app-question
+        class="w-100 container mt-2 mb-2"
+        [question]="question"
+        [form]="odataForm"
+      ></app-question>
+      <!-- <app-question></app-question> -->
+    </div>
+
+    <div class="mb-2"></div>
+
+    <ngx-spinner
+      bdColor="rgba(0,51,127,0.2)"
+      size="medium"
+      color="rgb(0,51,127)"
+      type="ball-scale-multiple"
+      fullScreen="false"
+    >
+      <!-- <p style="font-size: 20px; color: rgb(0, 51, 127);">Submitting...</p> -->
+    </ngx-spinner>
+
+    <mat-toolbar class="footer">
+      <span class="fill-remaining-space"></span>
+      <span class="fill-remaining-space"></span>
+      <span>
+        <button
+          mat-raised-button
+          type="submit"
+          [disabled]="!odataForm.valid"
+          [ngClass]="{
+            button1: true,
+            disabled: !odataForm.valid
+          }"
+          style="width: 80px;"
+        >
+          Submit
+        </button>
+
+        <button
+          mat-raised-button
+          type="button"
+          [disabled]="odataForm.pristine"
+          [ngClass]="{
+            button1: true,
+            'ml-1': true,
+            disabled: odataForm.pristine
+          }"
+          (click)="resetForm1()"
+          color="warn"
+          style="width: 80px; height: 30px;"
+        >
+          Reset
+        </button>
+      </span>
+    </mat-toolbar>
+  </form>
+
+  <div *ngIf="odataPayload" class="form-row mb-5">
+    <strong>Saved the following values</strong><br />{{ odataPayload }}
+  </div>
+</div>
+<!-- This is working
+  <app-question></app-question> -->

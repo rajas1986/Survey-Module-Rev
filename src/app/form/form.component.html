@@ -1,0 +1,14 @@
+<div class="container w-75 mb-3 mat-elevation-z1 p-0" style="min-width: 400px;">
+  <mat-card>
+    <mat-card-title
+      style="font-weight: 450; font-size: 20px;"
+      class="text-center"
+      >{{ surveyName }}
+    </mat-card-title>
+  </mat-card>
+</div>
+
+<div *ngIf="true" class="container">
+  <!-- <app-dynamic-form [questions]="questions$ | async"></app-dynamic-form> -->
+  <app-dynamic-form></app-dynamic-form>
+</div>

@@ -1,0 +1,21 @@
+app-question {
+  width: 100% !important;
+}
+/* button {
+  background-color: rgb(0, 81, 127) !important;
+  color: aliceblue;
+} */
+mat-card-content {
+  margin: 0 16px !important;
+}
+.disabled {
+  background-color: #d4d4d4 !important;
+}
+mat-button {
+  line-height: 31px !important;
+  border-radius: 15px !important;
+}
+.button1 {
+  line-height: 29px;
+  border-radius: 15px;
+}

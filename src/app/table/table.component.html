@@ -1,0 +1,116 @@
+<div class="container">
+  <mat-card>
+    <mat-card-title class="text-center">
+      <mat-icon>poll</mat-icon>
+      List of Pending Surveys
+    </mat-card-title>
+  </mat-card>
+</div>
+<div class="container">
+  <mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+    <!--- Note that these columns can be defined in any order.
+              The actual rendered columns are set as a property on the row definition" -->
+
+    <!-- Position Column -->
+    <ng-container matColumnDef="position">
+      <mat-header-cell *matHeaderCellDef>No.</mat-header-cell>
+      <mat-cell *matCellDef="let element">{{ element.SerialNum }}</mat-cell>
+    </ng-container>
+
+    <!-- Name Column -->
+    <ng-container matColumnDef="name">
+      <mat-header-cell *matHeaderCellDef>Name</mat-header-cell>
+      <mat-cell *matCellDef="let element">{{ element.SurveyName }}</mat-cell>
+    </ng-container>
+
+    <!-- closing date -->
+    <ng-container matColumnDef="openDate">
+      <mat-header-cell *matHeaderCellDef>Start Date</mat-header-cell>
+      <mat-cell *matCellDef="let element">
+        {{ element.StartDate | slice:6:19 | date: "dd-MM-yyyy"}}
+      </mat-cell>
+    </ng-container>
+
+    <!-- Expiring Date -->
+    <ng-container matColumnDef="closedDate">
+      <mat-header-cell *matHeaderCellDef>Expiry Date</mat-header-cell>
+      <mat-cell *matCellDef="let element">
+        {{ element.EndDate | slice:6:19 | date: "dd-MM-yyyy" }}
+      </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="status">
+      <mat-header-cell *matHeaderCellDef class="text-center">
+        Select Language
+      </mat-header-cell>
+      <!-- <td [ngClass]="{ status: status }" mat-cell *matCellDef="let element"> -->
+      <mat-cell *matCellDef="let element">
+        <!-- {{ element.languages[0].viewValue }} -->
+        <mat-form-field appearance="fill">
+          <!-- <mat-form-field> -->
+          <!-- <span align="center" matPrefix><mat-icon>language</mat-icon></span> -->
+          <mat-select
+            #lang
+            [placeholder]="langSelect"
+            (selectionChange)="onLangSelect(element, lang)"
+          >
+            <mat-option
+              *ngFor="let language of element.SurveyItemToLangNav.results"
+              [value]="language.LangKey"
+            >
+              {{ language.Language }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+        <!-- <mat-select #language (change)="onLangSelect(language.value)">
+          <mat-option
+            *ngFor="let language of element.languages"
+            [value]="language.value"
+          >
+            {{ language.viewValue }}
+          </mat-option>
+        </mat-select> -->
+      </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="actions" class="text-center">
+      <mat-header-cell *matHeaderCellDef>Take Survey</mat-header-cell>
+      <mat-cell *matCellDef="let element" class="text-center">
+        <button
+          matTooltip="Open Survey"
+          mat-icon-button
+          color="white"
+          aria-label="take survey"
+          (click)="goToSurvey(element)"
+        >
+          <mat-icon>open_in_new</mat-icon>
+        </button>
+      </mat-cell>
+    </ng-container>
+
+    <!-- *This container is for loading mat-footer-row -->
+    <ng-container matColumnDef="loading">
+      <mat-footer-cell *matFooterCellDef colspan="0">
+        Loading data ...
+      </mat-footer-cell>
+    </ng-container>
+    <!-- *This container is for loading mat-footer-row -->
+    <ng-container matColumnDef="noData">
+      <mat-footer-cell *matFooterCellDef>
+        No Data
+      </mat-footer-cell>
+    </ng-container>
+
+    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+    <mat-row *matRowDef="let row; columns: displayedColumns"></mat-row>
+
+    <mat-footer-row
+      *matFooterRowDef="['loading']"
+      [ngClass]="{ hide: dataSource != null }"
+    ></mat-footer-row>
+    <mat-footer-row
+      *matFooterRowDef="['noData']"
+      [ngClass]="{ hide: !(dataSource != null && dataSource.length === 0) }"
+    ></mat-footer-row>
+  </mat-table>
+</div>
